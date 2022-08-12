@@ -18,7 +18,9 @@ class Build : NukeBuild,
 
 interface IRestore : INukeBuild
 {
-    Target Restore => _ => _;
+    Target Restore => _ => _
+        // Why does the following line make the same restore target running twice?
+        .TryDependentFor<ICompile>();
 }
 
 interface ICompile : INukeBuild
