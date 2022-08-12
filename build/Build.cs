@@ -3,9 +3,17 @@ using Nuke.Common;
 
 class Build : NukeBuild,
     IRestoreDotNet,
+    IRestoreNuGetCli,
     ICompileDotNet
 {
     public static int Main() => Execute<Build>(x => ((ICompile)x).Compile);
+
+    Target IRestore.Restore => _ => _
+        .Inherit<IRestoreDotNet>();
+
+    Target AdditionalLegacyRestore => _ => _
+        .DependentFor<ICompile>()
+        .Inherit<IRestoreNuGetCli>();
 }
 
 interface IRestore : INukeBuild
