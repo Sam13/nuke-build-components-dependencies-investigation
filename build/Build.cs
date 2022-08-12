@@ -2,8 +2,8 @@ using System;
 using Nuke.Common;
 
 class Build : NukeBuild,
-    IRestoreDotNet,
-    IRestoreNuGetCli,
+    IRestore,
+    // IRestoreNuGetCli,
     ICompileDotNet
 {
     public static int Main() => Execute<Build>(x => ((ICompile)x).Compile);
